@@ -11,7 +11,7 @@ namespace CartService
 	{
 		private readonly ICartRepository _cartRepository;
 
-		public CartModule(ICartRepository cartRepository):base("/cart")
+		public CartModule(ICartRepository cartRepository):base("/carts")
 		{
 			_cartRepository = cartRepository;
 
