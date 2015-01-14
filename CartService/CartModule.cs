@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Nancy;
+using Nancy.ModelBinding;
 
 namespace CartService
 {
@@ -13,7 +14,16 @@ namespace CartService
 		public CartModule(ICartRepository cartRepository):base("/cart")
 		{
 			_cartRepository = cartRepository;
+
+			Get["/"] = x => _cartRepository.GetCarts();
 			Get["/{id}"] = x => _cartRepository.GetCartById(x.id);
+			Post["/"] = x => CreateCart();
+		}
+
+		private Cart CreateCart()
+		{
+			var cart = this.Bind<Cart>();
+			return _cartRepository.CreateCart(cart);
 		}
 	}
 }
