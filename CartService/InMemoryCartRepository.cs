@@ -65,7 +65,9 @@ namespace CartService
 
 		public CartItem UpdateItem(Guid cartId, CartItem item)
 		{
-			throw new NotImplementedException();
+			var cart = _carts[cartId];
+			cart.Items.First(i => i.ProductId == item.ProductId).Quantity = item.Quantity;
+			return item;
 		}
 
 		public IEnumerable<Cart> GetCarts()
