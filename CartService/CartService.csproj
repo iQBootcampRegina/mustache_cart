@@ -66,7 +66,14 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Address.cs" />
+    <Compile Include="Cart.cs" />
+    <Compile Include="CartBootstrapper.cs" />
+    <Compile Include="CartItem.cs" />
     <Compile Include="CartModule.cs" />
+    <Compile Include="CartState.cs" />
+    <Compile Include="ICartRepository.cs" />
+    <Compile Include="InMemoryCartRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

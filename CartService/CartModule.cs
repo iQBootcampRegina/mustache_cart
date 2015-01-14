@@ -8,9 +8,12 @@ namespace CartService
 {
 	public class CartModule : NancyModule
 	{
-		public CartModule()
+		private readonly ICartRepository _cartRepository;
+
+		public CartModule(ICartRepository cartRepository):base("/cart")
 		{
-			Get["/"] = x => "HEY IT'S A CART SERVICE!! YAY!!!! testing the push";
+			_cartRepository = cartRepository;
+			Get["/{id}"] = x => _cartRepository.GetCartById(x.id);
 		}
 	}
 }
