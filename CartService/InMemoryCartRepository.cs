@@ -6,12 +6,17 @@ namespace CartService
 {
 	public class InMemoryCartRepository : ICartRepository
 	{
-		IList<Cart> _carts; 
+		readonly IDictionary<Guid, Cart> _carts; 
 
 		public InMemoryCartRepository()
 		{
-			_carts = new List<Cart>();
-			_carts.Add(new Cart
+			_carts = new Dictionary<Guid, Cart>();
+			AddDefaultCart();
+		}
+
+		private void AddDefaultCart()
+		{
+			var cart = new Cart
 				{
 					Id = Guid.NewGuid(),
 					Address = new Address {Name = "Homer Simpson", City = "Springfield", PostalCode = "A8A8A8"},
@@ -23,24 +28,34 @@ namespace CartService
 							},
 					LastModified = DateTimeOffset.UtcNow,
 					State = CartState.InProgress
-				});
+				};
+			_carts[cart.Id] = cart;
 		}
+
+		public void ResetCartsList()
+		{
+			_carts.Clear();
+			AddDefaultCart();
+		}
+
 		public Cart GetCartById(Guid id)
 		{
-			return _carts.SingleOrDefault(c => c.Id == id);
+			Cart c = null;
+			_carts.TryGetValue(id, out c);
+			return c;
 		}
 
 		public Cart CreateCart(Cart cart)
 		{
 			//Validations and such
 			cart.Id = Guid.NewGuid();
-			_carts.Add(cart);
+			_carts[cart.Id] = cart;
 			return cart;
 		}
 
 		public CartItem AddItem(Guid cartId, CartItem item)
 		{
-			var cart =_carts.Single(c => c.Id == cartId);
+			var cart = _carts[cartId];
 			var items = cart.Items.ToList();
 			items.Add(item);
 			cart.Items = items;
@@ -55,7 +70,7 @@ namespace CartService
 
 		public IEnumerable<Cart> GetCarts()
 		{
-			return _carts;
+			return _carts.Values;
 		}
 	}
 }

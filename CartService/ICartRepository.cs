@@ -11,5 +11,7 @@ namespace CartService
 		CartItem UpdateItem(Guid cartId, CartItem item);
 
 		IEnumerable<Cart> GetCarts();
+
+		void ResetCartsList();
 	}
 }
