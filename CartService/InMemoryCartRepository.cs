@@ -72,5 +72,16 @@ namespace CartService
 		{
 			return _carts.Values;
 		}
-	}
+
+
+        public CartItem DeleteItem(Guid cartId, int itemId)
+        {
+            var cart = _carts.Single(c => c.Id == cartId);
+            var item = cart.Items.First(i => i.ProductId == itemId);
+            var list = cart.Items.ToList();
+            list.Remove(item);
+            cart.Items = list;
+            return item;
+        }
+    }
 }

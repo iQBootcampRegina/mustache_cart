@@ -9,6 +9,7 @@ namespace CartService
 		Cart CreateCart(Cart cart);
 		CartItem AddItem(Guid cartId, CartItem item);
 		CartItem UpdateItem(Guid cartId, CartItem item);
+	    CartItem DeleteItem(Guid cartId, int itemId);
 
 		IEnumerable<Cart> GetCarts();
 
