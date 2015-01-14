@@ -76,7 +76,7 @@ namespace CartService
 
         public CartItem DeleteItem(Guid cartId, int itemId)
         {
-            var cart = _carts.Single(c => c.Id == cartId);
+	        var cart = _carts[cartId];
             var item = cart.Items.First(i => i.ProductId == itemId);
             var list = cart.Items.ToList();
             list.Remove(item);
