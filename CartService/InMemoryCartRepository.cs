@@ -63,10 +63,10 @@ namespace CartService
 			return item;
 		}
 
-		public CartItem UpdateItem(Guid cartId, CartItem item)
+		public CartItem UpdateItem(Guid cartId, int itemId, CartItem item)
 		{
 			var cart = _carts[cartId];
-			cart.Items.First(i => i.ProductId == item.ProductId).Quantity = item.Quantity;
+			cart.Items.First(i => i.ProductId == itemId).Quantity = item.Quantity;
 			return item;
 		}
 
