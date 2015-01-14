@@ -17,6 +17,7 @@ namespace CartService
 
 			Get["/"] = x => _cartRepository.GetCarts();
 			Get["/{id}"] = x => _cartRepository.GetCartById(x.id);
+			Post["/{id}/Items"] = x => _cartRepository.AddItem(x.id, this.Bind<CartItem>());
 			Post["/"] = x => CreateCart();
 		}
 

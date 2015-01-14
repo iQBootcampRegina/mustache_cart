@@ -40,7 +40,11 @@ namespace CartService
 
 		public CartItem AddItem(Guid cartId, CartItem item)
 		{
-			_carts.Single(c => c.Id == cartId).Items.ToList().Add(item);
+			var cart =_carts.Single(c => c.Id == cartId);
+			var items = cart.Items.ToList();
+			items.Add(item);
+			cart.Items = items;
+
 			return item;
 		}
 
